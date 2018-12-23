@@ -22,7 +22,7 @@ class Main extends PluginBase implements Listener {
 	}
 	
 	public function onOpenEnderchest(InventoryOpenEvent $e)
-    {
+        {
         $inv = $e->getInventory();
         
         if($this->config->get("enderchest-slots") <= 26 and $this->config->get("enderchest-slots") >= 0){
@@ -36,7 +36,7 @@ class Main extends PluginBase implements Listener {
             }
         }
     }
- }
+}
 
     public function onEnderchestTransaction(InventoryTransactionEvent $e)
     {
