@@ -3,3 +3,25 @@ version: 1.0
 author: Seyz
 main: Seyz\EnderChestSlots\Main
 api: [3.0.0]
+
+permissions:
+
+  enderchest.vip.perm:
+  
+    description: Vip Perm
+    default: OP
+    
+  enderchest.vip+.perm:
+  
+    description: Vip+ Perm
+    default: OP
+    
+  enderchest.yt.perm:
+  
+    description: Yt Perm
+    default: OP
+    
+  enderchest.staff.perm:
+  
+    description: Staff Perm
+    default: OP        
