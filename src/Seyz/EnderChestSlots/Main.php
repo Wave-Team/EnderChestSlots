@@ -32,7 +32,7 @@ class Main extends PluginBase implements Listener {
   public function onOpenEnderchest(InventoryOpenEvent $e)
   {
         $inv = $e->getInventory();
-	$player = $e->getPLayer();
+	$player = $e->getPlayer();
 	  
         if ($inv instanceof EnderChestInventory) {
 		
