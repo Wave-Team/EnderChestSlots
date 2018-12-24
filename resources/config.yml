@@ -1,4 +1,19 @@
 ---
 # 26 is the maximum of slots
-enderchest-slots: 5
+
+# permisson: NULL
+enderchest-slots-default: 5
+
+# permisson: enderchest.yt.perm
+enderchest-slots-yt: 4
+
+# permisson: enderchest.vip.perm
+enderchest-slots-vip: 4
+
+# permisson: enderchest.vip+.perm
+enderchest-slots-vip+: 3
+
+# permisson: enderchest.staff.perm
+enderchest-slots-staff: 1
+
 ...
