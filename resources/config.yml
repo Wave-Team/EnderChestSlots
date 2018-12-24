@@ -5,15 +5,15 @@
 enderchest-slots-default: 5
 
 # permisson: enderchest.yt.perm
-enderchest-slots-yt: 4
+enderchest-slots-yt: 6
 
 # permisson: enderchest.vip.perm
-enderchest-slots-vip: 4
+enderchest-slots-vip: 7
 
 # permisson: enderchest.vip+.perm
-enderchest-slots-vip+: 3
+enderchest-slots-vip+: 8
 
 # permisson: enderchest.staff.perm
-enderchest-slots-staff: 1
+enderchest-slots-staff: 26
 
 ...

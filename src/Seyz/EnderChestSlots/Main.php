@@ -9,6 +9,7 @@ use pocketmine\event\inventory\InventoryOpenEvent;
 use pocketmine\event\inventory\InventoryTransactionEvent;
 use pocketmine\inventory\EnderChestInventory;
 use pocketmine\item\Item;
+use pocketmine\Player;
 
 class Main extends PluginBase implements Listener {
 	
@@ -22,7 +23,6 @@ class Main extends PluginBase implements Listener {
 	 
      if (!$this->isConfig()) {
 
-          $this->getServer()->getPluginManager()->disablePlugin("EnderChestSlots");
 	  $this->getLogger()->critical("The config.yml file is not good, please check if the slots are between 0 and 26");
 	     
      }
@@ -32,6 +32,7 @@ class Main extends PluginBase implements Listener {
   public function onOpenEnderchest(InventoryOpenEvent $e)
   {
         $inv = $e->getInventory();
+	$player = $e->getPLayer();
 	  
         if ($inv instanceof EnderChestInventory) {
 		
@@ -85,24 +86,28 @@ class Main extends PluginBase implements Listener {
 	
     private function setSlots(Player $player,int $slots) : void 
     {
-        while ($slots <= 26) {
-		
-	   if ($player->getEnderChestInventory()->getItem($slot)->getId() === Item::STAINED_GLASS_PANE &&
-               $player->getEnderChestInventory()->getItem($slot)->getDamage() === 15 &&
-               $player->getEnderChestInventory()->getItem($slot)->getCustomName() === " ") {
+	for ($i = 1; $i <= 26; $i++) {
 
-               $player->getEnderChestInventory()->setItem($slot, Item::get(0, 0, 1), true);
+	    if ($player->getEnderChestInventory()->getItem($i)->getId() === Item::STAINED_GLASS_PANE &&
+               $player->getEnderChestInventory()->getItem($i)->getDamage() === 15 &&
+               $player->getEnderChestInventory()->getItem($i)->getCustomName() === " ") {
 
-           } else {
-		   
-               $glass = Item::get(Item::STAINED_GLASS_PANE, 15, 1);
-               $glass->setCustomName(" ");
-               $player->getEnderChestInventory()->setItem($slots, $glass);
-               $slots++;
-		   
-	   }
+               $player->getEnderChestInventory()->setItem($i, Item::get(0, 0, 1), true);
+
+             }
+
+    	     if($slots <= $i) {
 		
-         }
+	   
+	         $glass = Item::get(Item::STAINED_GLASS_PANE, 15, 1);
+                 $glass->setCustomName(" ");
+                 $player->getEnderChestInventory()->setItem($i, $glass);
+	         $slots++;	
+		
+             }
+
+	 
+	}
 	    
     }
 	
@@ -112,7 +117,7 @@ class Main extends PluginBase implements Listener {
 	 
 	 foreach ($cfg as $name => $number) {
 		 
-	    if($number > 26 and $number < 0){
+	    if($number > 26 or $number < 0){
 		    
 	    	#fail maybe
 	        return false;
