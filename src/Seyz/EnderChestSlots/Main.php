@@ -114,15 +114,15 @@ class Main extends PluginBase implements Listener {
 		 
 	    if($number > 26 and $number < 0){
 		    
-	    
-	        retrun "false";
+	    	#fail maybe
+	        return false;
 		break;
                
 	    }
 
 	 }
 	    
-	 return "true";
+	 return true;
 	    
     }
 	
