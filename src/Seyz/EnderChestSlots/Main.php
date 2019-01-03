@@ -10,6 +10,8 @@ use pocketmine\event\inventory\InventoryTransactionEvent;
 use pocketmine\inventory\EnderChestInventory;
 use pocketmine\item\Item;
 use pocketmine\Player;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\StringTag;
 
 class Main extends PluginBase implements Listener {
 	
@@ -67,16 +69,16 @@ class Main extends PluginBase implements Listener {
         $transactions = $e->getTransaction()->getActions();
 
         foreach ($transactions as $transaction) {
+        	$item =$transaction->getSourceItem();
+	        $nbt = ($item->getNamedTag() ?? new CompoundTag());
+			$item1 =$transaction->getTargetItem();
+	        $nbt1 = ($item1->getNamedTag() ?? new CompoundTag());
             foreach ($e->getTransaction()->getInventories() as $inv) {
                 if ($inv instanceof EnderChestInventory) {
-                    if($transaction->getSourceItem()->getName() == " " &&
-		       $transaction->getSourceItem()->getId() == Item::STAINED_GLASS_PANE &&
-		       $transaction->getSourceItem()->getDamage() == 15
-		      or
-		       $transaction->getTargetItem()->getName() == " " &&
-		       $transaction->getTargetItem()->getId() == Item::STAINED_GLASS_PANE &&
-		       $transaction->getTargetItem()->getDamage() == 15)
-		    {
+                	//Palente was here <3
+	                //Make code in QuickEdit because no pc Make donation for me pls
+                    if(($nbt->hasTag("EnderChestSlots", StringTag::class) && $nbt->getTagValue("EnderChestSlots", StringTag::class) == "HighLev") OR ($nbt1->hasTag("EnderChestSlots", StringTag::class) && $nbt1->getTagValue("EnderChestSlots", StringTag::class) == "HighLev"))
+			    {
                         $e->setCancelled();
                     }
                 }
@@ -86,22 +88,26 @@ class Main extends PluginBase implements Listener {
 	
     private function setSlots(Player $player,int $slots) : void 
     {
+    	$enderchest =$player->getEnderChestInventory();
 	for ($i = 1; $i <= 26; $i++) {
+		$item = $player->getEnderChestInventory()->getItem($i);
+		$nbt = ($item->getNamedTag() ?? new CompoundTag());
+	    if ($nbt->hasTag("EnderChestSlots", StringTag::class) && $nbt->getTagValue("EnderChestSlots", StringTag::class) == "HighLev") {
 
-	    if ($player->getEnderChestInventory()->getItem($i)->getId() === Item::STAINED_GLASS_PANE &&
-               $player->getEnderChestInventory()->getItem($i)->getDamage() === 15 &&
-               $player->getEnderChestInventory()->getItem($i)->getCustomName() === " ") {
-
-               $player->getEnderChestInventory()->setItem($i, Item::get(0, 0, 1), true);
+               $enderchest->setItem($i, Item::get(0, 0, 1), true);
 
              }
 
     	     if($slots <= $i) {
 		
 	   
-	         $glass = Item::get(Item::STAINED_GLASS_PANE, 15, 1);
-                 $glass->setCustomName(" ");
-                 $player->getEnderChestInventory()->setItem($i, $glass);
+		         $glass = Item::get(Item::STAINED_GLASS_PANE, 15, 1);
+                 $glass->setCustomName("§4RESTRICTED");
+                 $nbt = ($glass->getNamedTag() ?? new CompoundTag());
+				 $nbt->setTag(new StringTag("EnderChestSlots", "HighLev"));
+				 $glass->setNamedTag($nbt);
+                 $enderchest->setItem($i, $glass);
+                 
 	         $slots++;	
 		
              }
