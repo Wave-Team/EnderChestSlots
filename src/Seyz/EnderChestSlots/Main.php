@@ -102,7 +102,7 @@ class Main extends PluginBase implements Listener {
 		
 	   
 		         $glass = Item::get(Item::STAINED_GLASS_PANE, 15, 1);
-                 $glass->setCustomName("ง4RESTRICTED");
+                 $glass->setCustomName("ยง4RESTRICTED");
                  $nbt = ($glass->getNamedTag() ?? new CompoundTag());
 				 $nbt->setTag(new StringTag("EnderChestSlots", "HighLev"));
 				 $glass->setNamedTag($nbt);
@@ -125,7 +125,6 @@ class Main extends PluginBase implements Listener {
 		 
 	    if($number > 26 or $number < 0){
 		    
-	    	#fail maybe
 	        return false;
 		break;
                
