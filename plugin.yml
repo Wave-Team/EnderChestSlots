@@ -1,7 +1,8 @@
 name: EnderChestSlots
 version: 1.0.2
-author: Seyz and Virvolta
-website: https://discord.gg/Vyznuka
+authors: 
+- Seyz
+- VirVolta
 main: Seyz\EnderChestSlots\Main
 api: [3.0.0]
 
