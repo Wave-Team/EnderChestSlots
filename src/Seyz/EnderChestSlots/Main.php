@@ -13,7 +13,9 @@ use pocketmine\Player;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\StringTag;
 
-class Main extends PluginBase implements Listener {
+class Main extends PluginBase implements Listener
+{
+    private $config;
 	
  public function onEnable(){
      $this->getServer()->getPluginManager()->registerEvents($this, $this);
