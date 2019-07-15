@@ -14,5 +14,3 @@ enderchest-slots-default: 5
 # permisson: enderchest.yt.perm
 enderchest-slots-yt: number
 ```
-
-You can join our Discord [here](https://discord.gg/Vyznuka)
