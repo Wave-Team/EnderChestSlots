@@ -4,7 +4,7 @@ namespace Seyz\EnderChestSlots;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
-use pocketmine\utils\Config;
+use pocketmine\utils\;
 use pocketmine\event\inventory\InventoryOpenEvent;
 use pocketmine\event\inventory\InventoryTransactionEvent;
 use pocketmine\inventory\EnderChestInventory;
