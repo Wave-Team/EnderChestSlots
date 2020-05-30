@@ -1,7 +1,7 @@
 # EnderChestSlots
-EnderChest Slots plugin for PocketMine-MP
+A PocketMine-MP plugin that allows you to restrict slots of EnderChests
 
-## Using Plugin
+## Usage
 
 ### Getting the config.yml of the plugin
 
