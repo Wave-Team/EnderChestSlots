@@ -1,29 +1,7 @@
 name: EnderChestSlots
-version: 1.0.2
+version: 1.0.3
 authors: 
 - Seyz
 - VirVolta
 main: Seyz\EnderChestSlots\Main
-api: [3.0.0]
-
-permissions:
-
-  enderchest.vip.perm:
-  
-    description: Vip Perm
-    default: OP
-    
-  enderchest.vip+.perm:
-  
-    description: Vip+ Perm
-    default: OP
-    
-  enderchest.yt.perm:
-  
-    description: Yt Perm
-    default: OP
-    
-  enderchest.staff.perm:
-  
-    description: Staff Perm
-    default: OP        
+api: 3.0.0

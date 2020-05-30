@@ -6,11 +6,22 @@ EnderChest Slots plugin for PocketMine-MP
 ### Getting the config.yml of the plugin
 
 ```YAML
-# 26 is the maximum of slots
+---
+# 27 is the maximum of slots
+# use "default" has permission to set the default number of slots
 
-# permisson: NULL
-enderchest-slots-default: 5
+restricted: §r§cRestricted
 
-# permisson: enderchest.yt.perm
-enderchest-slots-yt: number
+permissions: 
+  - 
+    permission: default
+    slots: 5
+    
+  - 
+    permission: enderchest.vip
+    slots: 8
+    
+  - 
+    permission: enderchest.staff
+    slots: 27
 ```
