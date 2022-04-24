@@ -2,18 +2,18 @@
 
 namespace Seyz\EnderChestSlots;
 
-use pocketmine\{
-    plugin\PluginBase,
-    event\Listener,
-    event\inventory\InventoryOpenEvent,
-    event\inventory\InventoryTransactionEvent,
-    inventory\EnderChestInventory,
-    item\Item,
-    nbt\tag\CompoundTag,
-    nbt\tag\StringTag,
-    Player,
-    utils\Config
-};
+use pocketmine\block\inventory\EnderChestInventory;
+use pocketmine\block\utils\DyeColor;
+use pocketmine\block\VanillaBlocks;
+use pocketmine\event\inventory\InventoryOpenEvent;
+use pocketmine\event\inventory\InventoryTransactionEvent;
+use pocketmine\event\Listener;
+use pocketmine\item\VanillaItems;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\permission\Permission;
+use pocketmine\permission\PermissionManager;
+use pocketmine\player\Player;
+use pocketmine\plugin\PluginBase;
 
 class Main extends PluginBase implements Listener
 {
@@ -21,8 +21,15 @@ class Main extends PluginBase implements Listener
     public function onEnable(): void
     {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        
         $this->saveResource("config.yml");
+
+        if ($this->getConfig()->exists("permission")) {
+            foreach ($this->getConfig()["permission"] as $data) {
+                if (isset($data["permission"])) {
+                    PermissionManager::getInstance()->addPermission(new Permission($data["permission"]));
+                }
+            }
+        }
     }
     
     public function onOpenEnderchest(InventoryOpenEvent $e): void
@@ -68,13 +75,13 @@ class Main extends PluginBase implements Listener
             foreach ($e->getTransaction()->getInventories() as $inv){
                 if ($inv instanceof EnderChestInventory) {
                     if(
-                        ($nbt->hasTag("EnderChestSlots")
+                        ($nbt->getTag("EnderChestSlots")
                         && $nbt->getString("EnderChestSlots") == "Restricted")
-                        || ($nbt1->hasTag("EnderChestSlots")
+                        || ($nbt1->getTag("EnderChestSlots")
                         && $nbt1->getString("EnderChestSlots") == "Restricted")
                     )
                     {
-                        $e->setCancelled();
+                        $e->cancel();
                     }
                 }
             }
@@ -83,20 +90,20 @@ class Main extends PluginBase implements Listener
     
     private function setSlots(Player $player, int $slots): void
     {
-        $enderchest = $player->getEnderChestInventory();
+        $enderchest = $player->getEnderInventory();
         
         for ($i = 1; $i <= 26; $i++){
-            $item = $player->getEnderChestInventory()->getItem($i);
+            $item = $player->getEnderInventory()->getItem($i);
             $nbt = ($item->getNamedTag() ?? new CompoundTag());
             
-            if($nbt->hasTag("EnderChestSlots") && $nbt->getString("EnderChestSlots") === "Restricted"){
-                $enderchest->setItem($i, Item::get(0, 0, 1), true);
+            if($nbt->getTag("EnderChestSlots") && $nbt->getString("EnderChestSlots") === "Restricted"){
+                $enderchest->setItem($i, VanillaItems::AIR());
             }
             
             if($slots <= $i){
                 $config = $this->getConfig();
                 
-                $glass = Item::get(Item::STAINED_GLASS_PANE, 15, 1);
+                $glass = VanillaBlocks::STAINED_GLASS_PANE()->setColor(DyeColor::GRAY())->asItem();
                 $glass->setCustomName($config->getNested("restricted") ?? "");
                 
                 $nbt = ($glass->getNamedTag() ?? new CompoundTag());
